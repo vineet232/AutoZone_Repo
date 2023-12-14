@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mywebapp
+  template:
+    metadata:
+      labels:
+        app: mywebapp
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "node-role.kubernetes.io/worker"
+                operator: In
+                values:
+                - worker
+      containers:
+      - name: application-server
+        image: vineet2302/custom_images:autozone-nginx-image
+        imagePullPolicy: Always
+          #command: ["python3", "/usr/share/nginx/html/app.py"]
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+        volumeMounts:
+        - name: mywebapp-data-volume
+          mountPath: "/app/data"
+      volumes:
+      - name: mywebapp-data-volume
+        persistentVolumeClaim:
+          claimName: mywebapp-pvc
+

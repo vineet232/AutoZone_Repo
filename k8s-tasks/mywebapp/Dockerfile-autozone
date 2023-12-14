@@ -1,0 +1,32 @@
+FROM nginx:latest
+
+WORKDIR /usr/share/nginx/html
+
+# Delete default Nginx configurations and index.html
+RUN rm /etc/nginx/conf.d/default.conf /usr/share/nginx/html/index.html
+
+# Copy required files and directories.
+COPY frontend/application/ .
+COPY nginx.conf /etc/nginx/conf.d/
+COPY backend/app.py .
+
+# Installing additional packages
+RUN apt-get update -y
+RUN apt-get upgrade -y
+RUN apt-get install vim -y 
+RUN apt-get install net-tools -y
+RUN apt-get install procps -y 
+RUN apt-get install iputils-* -y
+RUN apt-get install traceroute -y
+RUN apt-get install python3 -y
+RUN apt-get install python3-pip -y
+RUN apt-get install python3-flask -y
+RUN apt-get install python3-flask-cors -y
+#RUN apk --no-cache add openssl
+
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/conf.d/tls.key -out /etc/nginx/conf.d/tls.crt -subj "/C=IN/ST=UttarPradesh/L=Greater_Noida/O=AutoZone/CN=localhost"
+
+CMD service nginx start && python3 /usr/share/nginx/html/app.py
+
+#CMD ["nginx", "-g", "daemon off;"]
+

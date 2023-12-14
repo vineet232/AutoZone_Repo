@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mywebapp-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /tmp/mydata
+    type: ""
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+

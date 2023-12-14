@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Image Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Image Management</h1>
+    </header>
+
+    <section id="description">
+        <p>Welcome to our professional Image Management platform.</p>
+        <p>Effortlessly upload and download your images with a simple click.</p>
+        <p>Click the "Choose Images" button to get started.</p>
+    </section>
+    
+    <section id="upload-container">
+        <button id="upload-button">Choose Images</button>
+    </section>
+
+    <section id="thumbnails-container"></section>
+	
+    <progress id="upload-progress" value="0" max="100"></progress>
+
+
+    <section id="actions">
+        <button onclick="downloadImage()">Download Selected Images</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Image Management. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
