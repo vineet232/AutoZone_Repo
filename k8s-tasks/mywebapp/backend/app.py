@@ -8,7 +8,7 @@ app = Flask(__name__, static_url_path='/static')
 CORS(app)
 
 # Placeholder for the uploaded images
-uploaded_images_folder = '/app/data'
+uploaded_images_folder = '/static/uploads'
 
 @app.route('/')
 def home():
