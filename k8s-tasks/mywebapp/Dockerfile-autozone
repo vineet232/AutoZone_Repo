@@ -9,6 +9,7 @@ RUN rm /etc/nginx/conf.d/default.conf /usr/share/nginx/html/index.html
 COPY frontend/application/ .
 COPY nginx.conf /etc/nginx/conf.d/
 COPY backend/app.py .
+RUN mkdir -p frontend/application/static/uploads
 
 # Installing additional packages
 RUN apt-get update -y
